@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@import "../styles/accomplice.css";
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  font-size: clamp(14px, 0.88vw, 18.5px);
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: clamp(14px, 1.2vw, 18.5px);
+  }
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.preview-button-copy {
+  font-size: 0.84rem;
+  padding: 0.9rem 1.4rem;
+}
+
+@media (max-width: 480px) {
+  .preview-button-copy {
+    font-size: 0.93rem;
+  }
+}

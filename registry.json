@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "accomplice",
+  "homepage": "https://accomplice.se",
+  "items": [
+    {
+      "name": "accomplice-theme",
+      "type": "registry:theme",
+      "title": "Accomplice Theme",
+      "description": "Warm neutral surfaces, graphite text, and mineral accents for Accomplice app projects.",
+      "files": [
+        {
+          "path": "registry/accomplice-theme.json",
+          "type": "registry:theme"
+        }
+      ]
+    }
+  ]
+}
