@@ -644,6 +644,40 @@ npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.j
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
+          <h2 className="text-xl font-normal text-foreground">Optional agent skills</h2>
+          <p className={supportingTextClass}>
+            Agent skills are optional tooling helpers. They are not part of the app itself and should never be treated
+            as a hard dependency for building the UI.
+          </p>
+        </div>
+
+        <Card className="bg-background">
+          <CardHeader>
+            <CardTitle>Use if available, do not require</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
+              <li>If the agent environment supports skills, using the `shadcn` skill is recommended.</li>
+              <li>The skill helps with component selection, CLI usage, and shadcn conventions.</li>
+              <li>Do not block implementation on skill availability. If no skill system exists, use the shadcn CLI directly.</li>
+              <li>The real source of truth is still the Accomplice theme, component files, and project commands in this repo.</li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <div className="rounded-[10px] bg-card p-5">
+          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
+{`# optional, only if the agent environment supports Skills
+npx skills add shadcn/ui -y
+
+# still use project-level shadcn commands for actual UI work
+npx shadcn@latest add button input textarea select checkbox switch tabs sheet dialog table`}
+          </pre>
+        </div>
+      </section>
+
+      <section className="max-w-4xl space-y-6">
+        <div className="space-y-3">
           <h2 className="text-xl font-normal text-foreground">Definition of done</h2>
           <p className={supportingTextClass}>
             The AI should not consider the task complete until every item below is true.
@@ -717,6 +751,10 @@ Before building, install or import the Accomplice theme:
 - if working on this machine in a new shadcn app: npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
 - if the app already depends on the theme package: import @accomplice/shadcn-theme/styles/accomplice.css
 - if neither is available, ask for the published package name or stable registry URL instead of guessing
+
+Optional: if the agent environment supports Skills, install the shadcn skill with:
+- npx skills add shadcn/ui -y
+Do not block on this. If skills are unavailable, continue with the shadcn CLI directly.
 
 Before finishing:
 - run npm run build

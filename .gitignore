@@ -9,6 +9,7 @@ firebase-debug.*.log*
 
 # Firebase cache
 .firebase/
+dist/
 
 # Firebase config
 
@@ -67,3 +68,7 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Local agent/tooling state
+.claude/
+.kiro/
