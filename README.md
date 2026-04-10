@@ -4,6 +4,9 @@ Reusable Accomplice theme assets for shadcn-based apps.
 
 This repo provides a shared Accomplice theme layer for shadcn-based applications, so multiple projects can use the same tokens, surfaces, typography, and component styling without duplicating theme setup by hand.
 
+Live guide: https://design.accomplice.se/
+Machine-readable AI guide: https://design.accomplice.se/ai.txt
+
 ## What is here
 
 - `registry/accomplice-theme.json`: a `registry:theme` item for the shadcn CLI.
@@ -78,6 +81,18 @@ npm run dev
 ```
 
 That starts a Vite preview on a local port and watches `tokens/accomplice-theme.json`. When you change tokens, the generated theme CSS and registry item rebuild automatically while the preview is running.
+
+The canonical hosted version of this guide is:
+
+```text
+https://design.accomplice.se/
+```
+
+The build also emits a static AI-readable guide at:
+
+```text
+https://design.accomplice.se/ai.txt
+```
 
 ## Use in an existing shadcn app
 

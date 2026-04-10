@@ -6,11 +6,12 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "node scripts/build-theme.mjs",
+    "build:ai-guide": "node scripts/build-ai-guide.mjs",
     "check": "node scripts/build-theme.mjs --check",
     "dev": "node scripts/dev-preview.mjs",
     "dev:vite": "vite",
     "build:vite": "vite build",
-    "build:preview": "npm run build && vite build",
+    "build:preview": "npm run build && vite build && npm run build:ai-guide",
     "preview": "vite preview"
   },
   "devDependencies": {

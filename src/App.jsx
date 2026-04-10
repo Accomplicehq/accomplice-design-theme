@@ -17,6 +17,7 @@ import { cn } from "./lib/utils"
 import { Button } from "./components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
 import { Checkbox } from "./components/ui/checkbox"
+import { aiGuide } from "./content/ai-guide"
 import { Input } from "./components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select"
 import { Sheet, SheetContent, SheetTrigger } from "./components/ui/sheet"
@@ -137,7 +138,8 @@ function OverviewPage() {
           <h1 className={pageTitleClass}>Accomplice Design Guide</h1>
           <p className={pageIntroTextClass}>
             Accomplice apps usually use the full browser width, a simple type hierarchy, restrained radii, and a
-            constrained palette. The image treatment should feel intentional and atmospheric, not decorative.
+            constrained palette. The image treatment should feel intentional and atmospheric, not decorative. The live
+            guide for this project is available at `https://design.accomplice.se/`.
           </p>
           <div className="hidden lg:block" aria-hidden="true" />
         </div>
@@ -468,36 +470,50 @@ function AIPage() {
       <section className={pageIntroClass}>
         <h1 className={pageTitleClass}>AI</h1>
         <p className={pageIntroTextClass}>
-          This page is written for an AI agent. Treat it as an implementation contract. The objective is to build
-          Accomplice interfaces that use the same components, spacing, typography, and interaction rules as this guide,
-          without drifting into generic shadcn output.
+          {aiGuide.intro} Use `{aiGuide.liveGuideUrl}` as the canonical live reference when checking visual output, and
+          prefer `{aiGuide.machineReadableUrl}` for direct machine-readable access.
         </p>
       </section>
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Execution contract</h2>
-          <p className={supportingTextClass}>
-            Build with actual shadcn components or existing source equivalents from this repo. Do not generate custom
-            presentational HTML when a component should exist. Do not invent extra styling rules. Stay inside the
-            Accomplice system.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.themeSetup.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.themeSetup.description}</p>
         </div>
 
         <Card className="bg-background">
           <CardHeader>
-            <CardTitle>Non-negotiable rules</CardTitle>
+            <CardTitle>{aiGuide.themeSetup.cardTitle}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-              <li>Use Inter for all text. Do not introduce another font family.</li>
-              <li>Use semantic theme classes and tokens. Do not hardcode new colors.</li>
-              <li>Use actual shadcn components first: `Button`, `Input`, `Textarea`, `Select`, `Checkbox`, `Switch`, `Tabs`, `Sheet`, `Dialog`, `Table`.</li>
-              <li>Do not create decorative subheadings, eyebrow labels, all-caps pre-headings, or bold hero titles.</li>
-              <li>Do not wrap every section in a card. Cards are for metrics, grouped summaries, and contained utilities.</li>
-              <li>Desktop navigation is a fixed left sidebar. Mobile navigation is a sheet triggered by a hamburger.</li>
-              <li>Sidebar hover and active state are text-color only. No filled active pills.</li>
-              <li>Primary emphasis is orange. Surfaces stay white or grey.</li>
+              {aiGuide.themeSetup.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <div className="rounded-[10px] bg-card p-5">
+          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">{aiGuide.themeSetup.snippet}</pre>
+        </div>
+      </section>
+
+      <section className="max-w-4xl space-y-6">
+        <div className="space-y-3">
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.executionContract.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.executionContract.description}</p>
+        </div>
+
+        <Card className="bg-background">
+          <CardHeader>
+            <CardTitle>{aiGuide.executionContract.cardTitle}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
+              {aiGuide.executionContract.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -505,68 +521,43 @@ function AIPage() {
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">System specification</h2>
-          <p className={supportingTextClass}>
-            These values and patterns should be treated as source-of-truth when building or editing Accomplice app
-            screens.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.systemSpecification.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.systemSpecification.description}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <Card className="bg-background">
-            <CardHeader>
-              <CardTitle>Layout and spacing</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-                <li>Horizontal page spacing: `min(6.5rem, 8vw)`.</li>
-                <li>General section spacing: `6rem`, then `7.4rem` from `600px` up.</li>
-                <li>Desktop sidebar width should be content-driven with comfortable horizontal padding. Do not hard-code a single width as a system rule.</li>
-                <li>Overview hero-to-intro spacing: `min(6.5rem, 8vw)`.</li>
-                <li>Services-style intro row: heading column, paragraph column, `4rem` spacer column.</li>
-                <li>Prefer single-column content flow unless there is a real product reason for multiple columns.</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-background">
-            <CardHeader>
-              <CardTitle>Typography and color</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-                <li>Root font sizing follows the live site clamps in `src/preview.css`.</li>
-                <li>Paragraphs: `1rem` with `line-height: 1.5`.</li>
-                <li>Page `h1`: same calm services-page scale, not oversized marketing display type.</li>
-                <li>Heading weight: normal (`400`), not bold.</li>
-                <li>Approved palette only: `#CD511B`, `#E8792E`, `#FFFFFF`, `#000000`, `#F5F5F5`, `#FBFBFB`.</li>
-                <li>Primary buttons: orange with white text. Hover: `#E8792E`.</li>
-              </ul>
-            </CardContent>
-          </Card>
+          {aiGuide.systemSpecification.groups.map((group) => (
+            <Card key={group.title} className="bg-background">
+              <CardHeader>
+                <CardTitle>{group.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Required component behavior</h2>
-          <p className={supportingTextClass}>
-            These rules should drive component choice and implementation details.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.requiredComponentBehavior.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.requiredComponentBehavior.description}</p>
         </div>
 
         <Card className="bg-background">
           <CardHeader>
-            <CardTitle>Component rules</CardTitle>
+            <CardTitle>{aiGuide.requiredComponentBehavior.cardTitle}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-              <li>Inputs, textareas, selects, and datepicker triggers all use the same grey surface and no visible border.</li>
-              <li>Datepicker trigger should look like a field, not like a decorative button.</li>
-              <li>Use `Sheet` for mobile nav. Use `Tabs` for text-led section switching. Use `Select` for dropdown choice.</li>
-              <li>Use `cn()` for conditional classes. Do not build long manual class string ternaries.</li>
-              <li>Use semantic classes like `bg-input`, `bg-card`, `text-muted-foreground`, `bg-primary`.</li>
-              <li>Do not introduce custom dark mode styles. This guide is light-first.</li>
+              {aiGuide.requiredComponentBehavior.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -574,132 +565,54 @@ function AIPage() {
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Commands an AI should run</h2>
-          <p className={supportingTextClass}>
-            Before finalizing any UI work in this repo, the agent should use these commands to verify the result.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.commands.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.commands.description}</p>
         </div>
 
         <div className="rounded-[10px] bg-card p-5">
-          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
-{`# install dependencies
-npm install
-
-# run the preview locally
-npm run dev
-
-# regenerate theme outputs
-npm run build
-
-# build the preview app for production
-npm run build:preview
-
-# if using shadcn CLI in a real app project
-npx shadcn@latest add button input textarea select checkbox switch tabs sheet dialog table
-
-# after changes to hosting preview
-firebase deploy --only hosting`}
-          </pre>
+          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">{aiGuide.commands.snippet}</pre>
         </div>
       </section>
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">How to get the Accomplice theme</h2>
-          <p className={supportingTextClass}>
-            An AI should not assume the theme is already present in another app. It should install or import the theme
-            explicitly before building UI.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.optionalAgentSkills.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.optionalAgentSkills.description}</p>
         </div>
 
         <Card className="bg-background">
           <CardHeader>
-            <CardTitle>Theme acquisition rules</CardTitle>
+            <CardTitle>{aiGuide.optionalAgentSkills.cardTitle}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-              <li>If the target app is a new shadcn app, add the theme from `https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json` using the shadcn CLI.</li>
-              <li>If the target app already uses this package, import `@accomplice/shadcn-theme/styles/accomplice.css` in the main app stylesheet.</li>
-              <li>If this repo also exists locally on the same machine, the AI may use the local registry file as a fallback, but public instructions should prefer the public registry URL.</li>
-              <li>If neither the public registry item nor the package is available, the AI should stop assuming and ask for the correct package name or stable registry URL.</li>
-              <li>The AI should verify the theme is active before building screens by checking that semantic tokens resolve to Accomplice colors.</li>
+              {aiGuide.optionalAgentSkills.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
 
         <div className="rounded-[10px] bg-card p-5">
-          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
-{`# in a new shadcn app
-npx shadcn@latest add https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json
-
-# in an existing app that already depends on this package
-@import "@accomplice/shadcn-theme/styles/accomplice.css";
-
-# optional local fallback if this repo exists on the same machine
-npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
-
-# if the theme source is not available
-# ask for either:
-# - the published npm package name/version
-# - or a stable shadcn registry URL`}
-          </pre>
+          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">{aiGuide.optionalAgentSkills.snippet}</pre>
         </div>
       </section>
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Optional agent skills</h2>
-          <p className={supportingTextClass}>
-            Agent skills are optional tooling helpers. They are not part of the app itself and should never be treated
-            as a hard dependency for building the UI.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.definitionOfDone.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.definitionOfDone.description}</p>
         </div>
 
         <Card className="bg-background">
           <CardHeader>
-            <CardTitle>Use if available, do not require</CardTitle>
+            <CardTitle>{aiGuide.definitionOfDone.cardTitle}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-              <li>If the agent environment supports skills, using the `shadcn` skill is recommended.</li>
-              <li>The skill helps with component selection, CLI usage, and shadcn conventions.</li>
-              <li>Do not block implementation on skill availability. If no skill system exists, use the shadcn CLI directly.</li>
-              <li>The real source of truth is still the Accomplice theme, component files, and project commands in this repo.</li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <div className="rounded-[10px] bg-card p-5">
-          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
-{`# optional, only if the agent environment supports Skills
-npx skills add shadcn/ui -y
-
-# still use project-level shadcn commands for actual UI work
-npx shadcn@latest add button input textarea select checkbox switch tabs sheet dialog table`}
-          </pre>
-        </div>
-      </section>
-
-      <section className="max-w-4xl space-y-6">
-        <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Definition of done</h2>
-          <p className={supportingTextClass}>
-            The AI should not consider the task complete until every item below is true.
-          </p>
-        </div>
-
-        <Card className="bg-background">
-          <CardHeader>
-            <CardTitle>Completion checklist</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
-              <li>The screen uses real components from the shared UI layer, not custom substitute markup.</li>
-              <li>The page matches Accomplice spacing, typography, and color constraints.</li>
-              <li>Desktop and mobile both work, with sidebar on desktop and sheet menu on mobile.</li>
-              <li>Primary actions, hover states, and nav states match the guide.</li>
-              <li>`npm run build:preview` passes before handoff.</li>
-              <li>If deployed, the hosted page loads correctly and the route renders without broken assets.</li>
+              {aiGuide.definitionOfDone.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -707,67 +620,12 @@ npx shadcn@latest add button input textarea select checkbox switch tabs sheet di
 
       <section className="max-w-4xl space-y-6">
         <div className="space-y-3">
-          <h2 className="text-xl font-normal text-foreground">Copyable agent brief</h2>
-          <p className={supportingTextClass}>
-            Use this block directly when instructing another AI to build an Accomplice app page.
-          </p>
+          <h2 className="text-xl font-normal text-foreground">{aiGuide.copyableAgentBrief.title}</h2>
+          <p className={supportingTextClass}>{aiGuide.copyableAgentBrief.description}</p>
         </div>
 
         <div className="rounded-[10px] bg-card p-5">
-          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
-{`Build this interface using the Accomplice design system and real shadcn components.
-
-Use Inter for all text.
-Use only the approved Accomplice palette:
-- #CD511B
-- #E8792E
-- #FFFFFF
-- #000000
-- #F5F5F5
-- #FBFBFB
-
-Use white as the page background.
-Use #F5F5F5 for fields and quiet surfaces.
-Use orange only for primary emphasis.
-Use text-color-only hover and active states in sidebar navigation.
-Do not use decorative subheadings, all-caps labels, bold hero headings, glossy cards, heavy borders, or extra colors.
-Do not wrap every section in a card.
-
-Use these layout rules:
-- page horizontal spacing: min(6.5rem, 8vw)
-- section spacing: 6rem, then 7.4rem from 600px up
-- desktop sidebar width should fit the navigation content with comfortable padding; do not assume one fixed width for every app
-- sheet menu on mobile
-- broad full-width layout, not a narrow centered wrapper
-
-Use these typography rules:
-- paragraphs: 1rem with line-height 1.5
-- heading weight: 400
-- keep hierarchy simple: heading plus paragraph
-
-Use these component rules:
-- use Button, Input, Textarea, Select, Checkbox, Switch, Tabs, Sheet, Dialog, Table where relevant
-- datepicker trigger should visually match other fields
-- use semantic theme classes, not new raw styling
-- use cn() for conditional classes
-
-Before building, install or import the Accomplice theme:
-- if creating a new shadcn app: npx shadcn@latest add https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json
-- if the app already depends on the theme package: import @accomplice/shadcn-theme/styles/accomplice.css
-- if this repo exists locally on the same machine, the local registry file may be used as a fallback
-- if neither is available, ask for the correct package name or stable registry URL instead of guessing
-
-Optional: if the agent environment supports Skills, install the shadcn skill with:
-- npx skills add shadcn/ui -y
-Do not block on this. If skills are unavailable, continue with the shadcn CLI directly.
-
-Before finishing:
-- run npm run build
-- run npm run build:preview
-- if deploying, run firebase deploy --only hosting
-
-Do not finish until the UI matches the Accomplice design guide and the build passes.`}
-          </pre>
+          <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">{aiGuide.copyableAgentBrief.snippet}</pre>
         </div>
       </section>
     </div>
