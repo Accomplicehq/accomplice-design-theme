@@ -618,9 +618,10 @@ firebase deploy --only hosting`}
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-base leading-[1.5] text-muted-foreground">
+              <li>If the target app is a new shadcn app, add the theme from `https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json` using the shadcn CLI.</li>
               <li>If the target app already uses this package, import `@accomplice/shadcn-theme/styles/accomplice.css` in the main app stylesheet.</li>
-              <li>If the target app is a new shadcn app and this repo exists locally, add the theme from `D:/dev/accomplice-design-theme/registry/accomplice-theme.json` using the shadcn CLI.</li>
-              <li>If the target app is outside this machine or the local path is unavailable, the AI should stop assuming and ask for the published package name or stable registry URL.</li>
+              <li>If this repo also exists locally on the same machine, the AI may use the local registry file as a fallback, but public instructions should prefer the public registry URL.</li>
+              <li>If neither the public registry item nor the package is available, the AI should stop assuming and ask for the correct package name or stable registry URL.</li>
               <li>The AI should verify the theme is active before building screens by checking that semantic tokens resolve to Accomplice colors.</li>
             </ul>
           </CardContent>
@@ -628,13 +629,16 @@ firebase deploy --only hosting`}
 
         <div className="rounded-[10px] bg-card p-5">
           <pre className="whitespace-pre-wrap text-base leading-[1.5] text-foreground">
-{`# in a new shadcn app on this machine
-npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
+{`# in a new shadcn app
+npx shadcn@latest add https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json
 
 # in an existing app that already depends on this package
 @import "@accomplice/shadcn-theme/styles/accomplice.css";
 
-# if the theme source is not available locally
+# optional local fallback if this repo exists on the same machine
+npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
+
+# if the theme source is not available
 # ask for either:
 # - the published npm package name/version
 # - or a stable shadcn registry URL`}
@@ -748,9 +752,10 @@ Use these component rules:
 - use cn() for conditional classes
 
 Before building, install or import the Accomplice theme:
-- if working on this machine in a new shadcn app: npx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
+- if creating a new shadcn app: npx shadcn@latest add https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json
 - if the app already depends on the theme package: import @accomplice/shadcn-theme/styles/accomplice.css
-- if neither is available, ask for the published package name or stable registry URL instead of guessing
+- if this repo exists locally on the same machine, the local registry file may be used as a fallback
+- if neither is available, ask for the correct package name or stable registry URL instead of guessing
 
 Optional: if the agent environment supports Skills, install the shadcn skill with:
 - npx skills add shadcn/ui -y

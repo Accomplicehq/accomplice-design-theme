@@ -2,7 +2,7 @@
 
 Reusable Accomplice theme assets for shadcn-based apps.
 
-This repo is set up as a small theme package so you can use the same tokens across multiple projects instead of copying `globals.css` by hand.
+This repo provides a shared Accomplice theme layer for shadcn-based applications, so multiple projects can use the same tokens, surfaces, typography, and component styling without duplicating theme setup by hand.
 
 ## What is here
 
@@ -13,16 +13,25 @@ This repo is set up as a small theme package so you can use the same tokens acro
 
 ## Brand direction
 
-This first pass is intentionally grounded in Accomplice's public positioning: structure, clarity, longevity, and editorial restraint.
+The theme is designed around a restrained, practical interface style:
 
-Because the public site content did not expose a formal brand system in accessible source content, the palette is an inference rather than a literal extraction from a private brand guide. The theme therefore uses:
+- Inter for all typography
+- white page backgrounds
+- black primary text
+- light grey surfaces for fields and quiet panels
+- orange primary actions with a lighter orange hover state
+- simple hierarchy, broad spacing, and minimal decorative treatment
 
-- warm off-white and stone surfaces
-- graphite foreground text
-- mineral teal as the main brand action color
-- muted copper as the accent tone
+The shared palette is intentionally constrained to:
 
-If you have an internal brand palette or typography spec, swap the token values in `tokens/accomplice-theme.json` first and regenerate from there.
+- `#CD511B`
+- `#E8792E`
+- `#FFFFFF`
+- `#000000`
+- `#F5F5F5`
+- `#FBFBFB`
+
+If you want to adjust the theme, edit `tokens/accomplice-theme.json` and regenerate the outputs:
 
 ```bash
 npm run build
@@ -36,10 +45,10 @@ npm run build
 pnpm dlx shadcn@latest init
 ```
 
-2. Add the theme from a local path while this repo exists on disk:
+2. Add the theme from the public registry item:
 
 ```bash
-pnpm dlx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
+pnpm dlx shadcn@latest add https://raw.githubusercontent.com/Accomplicehq/accomplice-design-theme/master/registry/accomplice-theme.json
 ```
 
 3. If you want consistent typography, load the same font in the app:
@@ -52,6 +61,12 @@ Then bind those fonts to:
 
 - `--font-accomplice-sans`
 - `--font-accomplice-display`
+
+If you are working on the same machine as this repo, you can also use the local fallback path:
+
+```bash
+pnpm dlx shadcn@latest add D:/dev/accomplice-design-theme/registry/accomplice-theme.json
+```
 
 ## Preview locally
 
@@ -66,7 +81,7 @@ That starts a Vite preview on a local port and watches `tokens/accomplice-theme.
 
 ## Use in an existing shadcn app
 
-Import the CSS file near the top of your main app stylesheet, before app-specific overrides:
+If the app already depends on the published theme package, import the CSS file near the top of your main app stylesheet, before app-specific overrides:
 
 ```css
 @import "@accomplice/shadcn-theme/styles/accomplice.css";
@@ -78,10 +93,10 @@ If the app already has its own shadcn variables in `globals.css`, remove the dup
 
 The theme includes a few opt-in helpers:
 
-- `.theme-accomplice-shell`: subtle radial brand wash for page backgrounds
-- `.theme-accomplice-panel`: elevated panel treatment for cards and dashboards
-- `.theme-accomplice-kicker`: small uppercase meta label
-- `.theme-accomplice-display`: display serif hook for selected headings
+- `.theme-accomplice-shell`: page shell background hook
+- `.theme-accomplice-panel`: simple panel surface hook
+- `.theme-accomplice-kicker`: small muted meta label
+- `.theme-accomplice-display`: alternate display font hook
 
 These are optional. The main integration point is still the shadcn token layer.
 
